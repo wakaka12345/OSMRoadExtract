@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31624.102
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32319.34
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OSMRoadExtract", "OSMRoadExtract.csproj", "{C821EB67-5DCE-4ED2-A195-FBFD195A8EDD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OSMRoadExtractTest", "..\SOSMRoadExtractTest\OSMRoadExtractTest.csproj", "{585D96DA-0C29-4BA3-8F35-AF89FE22C499}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{C821EB67-5DCE-4ED2-A195-FBFD195A8EDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C821EB67-5DCE-4ED2-A195-FBFD195A8EDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C821EB67-5DCE-4ED2-A195-FBFD195A8EDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{585D96DA-0C29-4BA3-8F35-AF89FE22C499}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{585D96DA-0C29-4BA3-8F35-AF89FE22C499}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{585D96DA-0C29-4BA3-8F35-AF89FE22C499}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{585D96DA-0C29-4BA3-8F35-AF89FE22C499}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

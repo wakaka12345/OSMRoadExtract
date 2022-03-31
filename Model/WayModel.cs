@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OSMRoadExtract.Model
 {
-    internal class WayModel
+    public class WayModel
     {
         public int id;
         private List<TagModel> _tags;
@@ -20,7 +20,7 @@ namespace OSMRoadExtract.Model
 
     }
     
-    class WayNode
+    public class WayNode
     {
         int id;
     }

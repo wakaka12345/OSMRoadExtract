@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OSMRoadExtract.Model
 {
-    internal class OSMModel
+    public class OSMModel
     { 
         /// <summary>
         /// 坐标点(私有)
@@ -35,6 +35,13 @@ namespace OSMRoadExtract.Model
             get { return _bounds; }
         }
 
-        private List<WayModel> ways;
+        private List<WayModel> _ways;
+
+        public List<WayModel> ways
+        {
+            get { return _ways; }
+            set { _ways = value; }
+        }
+        public double version;
     }
 }

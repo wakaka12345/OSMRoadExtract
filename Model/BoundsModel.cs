@@ -11,21 +11,21 @@ namespace OSMRoadExtract.Model
         /// <summary>
         /// 最小纬度
         /// </summary>
-        public double minLat;
-        
+        public double minLat { get; set; }
+
         /// <summary>
         /// 最大纬度
         /// </summary>
-        public double maxLat;
+        public double maxLat { get; set; }
 
         /// <summary>
         /// 最小经度
         /// </summary>
-        public double minLon;
+        public double minLon { get; set; }
 
         /// <summary>
         /// 最大经度
         /// </summary>
-        public double maxLon;
+        public double maxLon { get; set; }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OSMRoadExtract.Model
 {
-    internal class NodeModel
+    public class NodeModel
     {
         private List<TagModel> _tag = new List<TagModel>(); 
         /// <summary>

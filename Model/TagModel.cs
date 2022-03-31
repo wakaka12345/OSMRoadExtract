@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OSMRoadExtract.Model
 {
-    internal class TagModel
+    public class TagModel
     {
         /// <summary>
         /// 点标记Key
