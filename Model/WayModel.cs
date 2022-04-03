@@ -22,6 +22,6 @@ namespace OSMRoadExtract.Model
     
     public class WayNode
     {
-        int id;
+        public int id;
     }
 }

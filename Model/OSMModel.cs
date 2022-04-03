@@ -11,14 +11,14 @@ namespace OSMRoadExtract.Model
         /// <summary>
         /// 坐标点(私有)
         /// </summary>
-        private List<NodeModel> _node;
+        private List<NodeModel> _nodes;
         /// <summary>
         /// 坐标点
         /// </summary>
-        public List<NodeModel> node
+        public List<NodeModel> nodes
         {
-            set { _node = value; }
-            get { return _node; }
+            set { _nodes = value; }
+            get { return _nodes; }
         }
 
         /// <summary>

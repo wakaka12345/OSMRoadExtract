@@ -27,7 +27,36 @@ namespace OSMRoadExtract.XMLtransform
                                                          minLat = (double)bound.Attribute("minlat"),
                                                          maxLon = (double)bound.Attribute("maxlon"),
                                                          minLon = (double)bound.Attribute("minlon")
-                                                     }).ToList()
+                                                     }).ToList(),
+                                            nodes = (from node in osm.Descendants("node")
+                                                      select new NodeModel
+                                                      {
+                                                          id = (int)node.Attribute("id"),
+                                                          lat = (double)node.Attribute("lat"),
+                                                          lon = (double)node.Attribute("lon"),
+                                                          Tag = (from tag in node.Descendants("tag")
+                                                                  select new TagModel
+                                                                  {
+                                                                      key = (string)tag.Attribute("k"),
+                                                                      value = (string)tag.Attribute("v")
+                                                                  }).ToList()
+                                                      }).ToList(),
+                                           ways = (from way in osm.Descendants("way")
+                                                    select new WayModel
+                                                    {
+                                                        id = (int)way.Attribute("id"),
+                                                        waynode = (from nd in way.Descendants("nd")
+                                                                   select new WayNode
+                                                                   {
+                                                                       id = (int)nd.Attribute("ref"),
+                                                                   }).ToList(),
+                                                        tags = (from tag in way.Descendants("tag")
+                                                                select new TagModel
+                                                                {
+                                                                    key = (string) tag.Attribute("k"),
+                                                                    value = (string) tag.Attribute("v")
+                                                                }).ToList()
+                                                    }).ToList()
                                        }).ToList();
             //models = (
             //    from OSMModel in xmlDoc.Descendants())
