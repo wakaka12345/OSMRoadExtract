@@ -20,7 +20,7 @@ namespace OSMRoadExtract.Model
         /// <summary>
         /// 坐标点id
         /// </summary>
-        public int id;
+        public long id;
         /// <summary>
         /// 坐标点纬度
         /// </summary>

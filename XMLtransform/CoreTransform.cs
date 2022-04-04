@@ -11,10 +11,10 @@ namespace OSMRoadExtract.XMLtransform
 {
     public class CoreTransform
     {
-        public List<OSMModel> TransformXML()
+        public List<OSMModel> TransformXML(string filePath)
         {
             List<OSMModel> models = new List<OSMModel>();
-            var getXml = XDocument.Load("E:\\project\\OSMRoadExtract\\Data\\map.osm");
+            var getXml = XDocument.Load(filePath);
             var t= getXml.Root;
             models = (from osm in getXml.Descendants("osm")
                                        select new OSMModel
@@ -31,7 +31,7 @@ namespace OSMRoadExtract.XMLtransform
                                             nodes = (from node in osm.Descendants("node")
                                                       select new NodeModel
                                                       {
-                                                          id = (int)node.Attribute("id"),
+                                                          id = (long)node.Attribute("id"),
                                                           lat = (double)node.Attribute("lat"),
                                                           lon = (double)node.Attribute("lon"),
                                                           Tag = (from tag in node.Descendants("tag")
@@ -44,11 +44,11 @@ namespace OSMRoadExtract.XMLtransform
                                            ways = (from way in osm.Descendants("way")
                                                     select new WayModel
                                                     {
-                                                        id = (int)way.Attribute("id"),
+                                                        id = (long)way.Attribute("id"),
                                                         waynode = (from nd in way.Descendants("nd")
                                                                    select new WayNode
                                                                    {
-                                                                       id = (int)nd.Attribute("ref"),
+                                                                       id = (long)nd.Attribute("ref"),
                                                                    }).ToList(),
                                                         tags = (from tag in way.Descendants("tag")
                                                                 select new TagModel

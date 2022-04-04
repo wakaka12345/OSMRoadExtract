@@ -8,7 +8,7 @@ namespace OSMRoadExtract.Model
 {
     public class WayModel
     {
-        public int id;
+        public long id;
         private List<TagModel> _tags;
         public List<TagModel> tags
         {
@@ -22,6 +22,6 @@ namespace OSMRoadExtract.Model
     
     public class WayNode
     {
-        public int id;
+        public long id;
     }
 }
