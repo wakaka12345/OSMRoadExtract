@@ -10,11 +10,13 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using OSMRoadExtract.XMLtransform;
 using OSMRoadExtract.Model;
+using System.Drawing;
 
 namespace OSMRoadExtract
 {
     public partial class Form1 : Form
     {
+        Graphics g;
         public Form1()
         {
             InitializeComponent();
@@ -55,6 +57,22 @@ namespace OSMRoadExtract
                 }
                 
             }
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+            g = panel1.CreateGraphics();
+            
+        }
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+
+        }
+
+        private void panel1_MouseUp(object sender, MouseEventArgs e)
+        {
+            Console.WriteLine(Cursor.Position.X.ToString()+Cursor.Position.Y.ToString());
         }
     }
 }

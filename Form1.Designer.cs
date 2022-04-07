@@ -30,11 +30,13 @@ namespace OSMRoadExtract
         private void InitializeComponent()
         {
             this.button1 = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(832, 304);
+            this.button1.Location = new System.Drawing.Point(0, 1);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 0;
@@ -42,11 +44,25 @@ namespace OSMRoadExtract
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // panel1
+            // 
+            this.panel1.Location = new System.Drawing.Point(81, 1);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1286, 743);
+            this.panel1.TabIndex = 1;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            this.panel1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseUp);
+            // 
+            // backgroundWorker1
+            // 
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(2004, 741);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.button1);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Form1";
@@ -59,6 +75,8 @@ namespace OSMRoadExtract
         #endregion
 
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Panel panel1;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }
 
