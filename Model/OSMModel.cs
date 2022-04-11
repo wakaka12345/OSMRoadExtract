@@ -35,6 +35,9 @@ namespace OSMRoadExtract.Model
             get { return _bounds; }
         }
 
+        /// <summary>
+        /// 路径点
+        /// </summary>
         private List<WayModel> _ways;
 
         public List<WayModel> ways
