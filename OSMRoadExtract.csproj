@@ -70,6 +70,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\BoundsModel.cs" />
+    <Compile Include="Model\GlobalConstant.cs" />
     <Compile Include="Model\NodeModel.cs" />
     <Compile Include="Model\PointModel.cs" />
     <Compile Include="Model\TagModel.cs" />

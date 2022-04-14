@@ -11,15 +11,19 @@ namespace OSMRoadExtract.Provider
 {
     internal class LineCollect
     {
-        public Dictionary<string,List<Point>> LineGet(OSMModel model)
+        private static LineCollect instance = new LineCollect();
+        public static LineCollect Instance
+        { get { return instance; } }
+        public Dictionary<long, PointF[]> LineGet(OSMModel model)
         {
-            Dictionary<string, List<Point>> result = new Dictionary<string, List<Point>>();
+            Dictionary<long, PointF[]> result = new Dictionary<long, PointF[]>();
             if (model.Equals(null))
             {
                 return result;
             }
             
-            var lineList = LineExtract.Instance.GetLine(model);
+            (var lineList,var bound) = LineExtract.Instance.GetLine(model);
+            result = LineExtract.Instance.PointFaggregate(lineList, model, bound);
             return result;
         }
     }

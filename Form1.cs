@@ -10,13 +10,17 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using OSMRoadExtract.XMLtransform;
 using OSMRoadExtract.Model;
+using OSMRoadExtract.Provider;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 
 namespace OSMRoadExtract
 {
     public partial class Form1 : Form
     {
-        Graphics g;
+        public Graphics g;
+        public int flag = 0;
+        public OSMModel model;
         public Form1()
         {
             InitializeComponent();
@@ -45,15 +49,27 @@ namespace OSMRoadExtract
             ofd.RestoreDirectory = true;
             if (ofd.ShowDialog() == DialogResult.OK)
             {
+                
                 //获取用户选择的文件完整路径
                 string filePath = ofd.FileName;
+                Console.WriteLine(filePath);
                 //获取对话框中所选文件的文件名和扩展名，文件名不包括路径
                 string fileName = ofd.SafeFileName;
-                if (string.IsNullOrEmpty(filePath))
+                if (!string.IsNullOrEmpty(filePath))
                 {
                     CoreTransform transformXml = new CoreTransform();
-                    List<OSMModel> models = new List<OSMModel>();
-                    models = transformXml.TransformXML(filePath);
+                    Console.WriteLine(filePath);
+                    List<OSMModel>models = transformXml.TransformXML(filePath);
+                    if (models.Count() > 0)
+                    {
+                        Console.WriteLine("!!!!");
+                        model = models[0];
+                        flag = 1;
+                        this.Invalidate();
+                        this.Update();
+                        this.Refresh();
+                    }
+                    
                 }
                 
             }
@@ -62,6 +78,25 @@ namespace OSMRoadExtract
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
             g = panel1.CreateGraphics();
+            Console.WriteLine("Start");
+            if(flag == 1)
+            {
+                var lineDictionary = LineCollect.Instance.LineGet(model);
+                var lineList = lineDictionary.ToList();
+                foreach (var line in lineList)
+                {
+                    if (!line.Equals(null))
+                    {
+                        Console.WriteLine("ADD");
+                        GraphicsPath path = new GraphicsPath();
+                        path.AddLines(line.Value);
+                        Pen pen = new Pen(Color.Red, 3);
+                        //e.Graphics.DrawLines(pen, line.Value);
+                        e.Graphics.DrawPath(pen, path);
+                    } 
+                }
+                flag = 0;
+            }
             
         }
 
@@ -73,6 +108,7 @@ namespace OSMRoadExtract
         private void panel1_MouseUp(object sender, MouseEventArgs e)
         {
             Console.WriteLine(Cursor.Position.X.ToString()+Cursor.Position.Y.ToString());
+            
         }
     }
 }
