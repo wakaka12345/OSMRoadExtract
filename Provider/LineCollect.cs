@@ -14,9 +14,9 @@ namespace OSMRoadExtract.Provider
         private static LineCollect instance = new LineCollect();
         public static LineCollect Instance
         { get { return instance; } }
-        public Dictionary<long, PointF[]> LineGet(OSMModel model)
+        public Dictionary<long, List<PointF[]>> LineGet(OSMModel model)
         {
-            Dictionary<long, PointF[]> result = new Dictionary<long, PointF[]>();
+            Dictionary<long, List<PointF[]>> result = new Dictionary<long, List<PointF[]>>();
             if (model.Equals(null))
             {
                 return result;

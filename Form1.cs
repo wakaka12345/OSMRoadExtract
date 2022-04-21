@@ -83,16 +83,19 @@ namespace OSMRoadExtract
             {
                 var lineDictionary = LineCollect.Instance.LineGet(model);
                 var lineList = lineDictionary.ToList();
-                foreach (var line in lineList)
+                foreach (var lines in lineList)
                 {
-                    if (!line.Equals(null))
+                    if (!lines.Equals(null))
                     {
                         Console.WriteLine("ADD");
                         GraphicsPath path = new GraphicsPath();
-                        path.AddLines(line.Value);
-                        Pen pen = new Pen(Color.Red, 3);
-                        //e.Graphics.DrawLines(pen, line.Value);
-                        e.Graphics.DrawPath(pen, path);
+                        foreach(var line in lines.Value)
+                        {
+                            path.AddLines(line);
+                            Pen pen = new Pen(Color.Red, 3);
+                            //e.Graphics.DrawLines(pen, line.Value);
+                            e.Graphics.DrawPath(pen, path);
+                        }
                     } 
                 }
                 flag = 0;

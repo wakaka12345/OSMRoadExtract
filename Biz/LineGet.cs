@@ -73,9 +73,9 @@ namespace OSMRoadExtract.Biz
         /// <param name="models"></param>
         /// <param name="bounds"></param>
         /// <returns></returns>
-        public Dictionary<long,PointF[]> PointFaggregate(Dictionary<long, List<NodeModel>> lines,OSMModel models,List<float> bounds)
+        public Dictionary<long,List<PointF[]>> PointFaggregate(Dictionary<long, List<NodeModel>> lines,OSMModel models,List<float> bounds)
         {
-            Dictionary<long, PointF[]> result = new Dictionary<long, PointF[]>();
+            Dictionary<long, List<PointF[]>> result = new Dictionary<long, List<PointF[]>>();
             float YSize = ((float)(models.bounds[0].maxLat-models.bounds[0].minLat));
             float XSize = ((float)(models.bounds[0].maxLon - models.bounds[0].minLon));
             float YMax = (float)(models.bounds[0].maxLat);
@@ -84,18 +84,47 @@ namespace OSMRoadExtract.Biz
             var radixY = GlobalConstant.DRAW_Y_SIZE / YSize;
             foreach(var line in lines)
             {
-                PointF[] points = new PointF[line.Value.Count];
                 int i = 0;
+                List<PointF[]> pointList = new List<PointF[]>();
+                List<PointF> listPoint = new List<PointF>();
                 foreach(var node in line.Value)
                 {
                     float X = (float)(node.lon-XMIN)*radixX+GlobalConstant.START_X;
                     float Y = (float)(YMax - node.lat)*radixY+GlobalConstant.START_Y;
                     if(X<0||Y<0)
+                    {
+                        if(i!=0)
+                        {
+                            PointF[] points = new PointF[listPoint.Count];
+                            int k = 0;
+                            foreach (var point in listPoint)
+                            {
+                                points[k] = point;
+                                k++;
+                            }
+                            i = 0;
+                            pointList.Add(points);
+                            listPoint.Clear();
+                        }
                         continue;
-                    PointF point = new PointF(X, Y);
-                    points[i++] = point;
+                    }
+                    listPoint.Add(new PointF(X, Y));
+                     i++;
                 }
-                result.Add(line.Key, points);
+                if(i != 0)
+                {
+                    PointF[] points = new PointF[listPoint.Count];
+                    int k = 0;
+                    foreach (var point in listPoint)
+                    {
+                        points[k] = point;
+                        k++;
+                    }
+                    i = 0;
+                    listPoint.Clear();
+                    pointList.Add(points);
+                }
+                result.Add(line.Key, pointList);
             }
             return result;
         }
