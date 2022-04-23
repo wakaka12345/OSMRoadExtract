@@ -23,7 +23,7 @@ namespace OSMRoadExtract.Provider
             }
             
             (var lineList,var bound) = LineExtract.Instance.GetLine(model);
-            result = LineExtract.Instance.PointFaggregate(lineList, model, bound);
+            result = LineExtract.Instance.FixPointFaggregate(lineList, model, bound);
             return result;
         }
     }

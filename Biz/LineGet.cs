@@ -67,13 +67,13 @@ namespace OSMRoadExtract.Biz
             return (line, bound);
         }
         /// <summary>
-        /// 转换为Graphics所需的PoinF
+        /// 转换为Graphics所需的PoinF  (处理后)
         /// </summary>
         /// <param name="lines"></param>
         /// <param name="models"></param>
         /// <param name="bounds"></param>
         /// <returns></returns>
-        public Dictionary<long,List<PointF[]>> PointFaggregate(Dictionary<long, List<NodeModel>> lines,OSMModel models,List<float> bounds)
+        public Dictionary<long,List<PointF[]>> FixPointFaggregate(Dictionary<long, List<NodeModel>> lines,OSMModel models,List<float> bounds)
         {
             Dictionary<long, List<PointF[]>> result = new Dictionary<long, List<PointF[]>>();
             float YSize = ((float)(models.bounds[0].maxLat-models.bounds[0].minLat));
@@ -112,6 +112,56 @@ namespace OSMRoadExtract.Biz
                      i++;
                 }
                 if(i != 0)
+                {
+                    PointF[] points = new PointF[listPoint.Count];
+                    int k = 0;
+                    foreach (var point in listPoint)
+                    {
+                        points[k] = point;
+                        k++;
+                    }
+                    i = 0;
+                    listPoint.Clear();
+                    pointList.Add(points);
+                }
+                result.Add(line.Key, pointList);
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 转换为Graphics所需的PoinF  (处理前)
+        /// </summary>
+        /// <param name="lines"></param>
+        /// <param name="models"></param>
+        /// <param name="bounds"></param>
+        /// <returns></returns>
+        public Dictionary<long, List<PointF[]>> UnFixPointFaggregate(Dictionary<long, List<NodeModel>> lines, OSMModel models, List<float> bounds)
+        {
+            Dictionary<long, List<PointF[]>> result = new Dictionary<long, List<PointF[]>>();
+            float YSize = ((float)(models.bounds[0].maxLat - models.bounds[0].minLat));
+            float XSize = ((float)(models.bounds[0].maxLon - models.bounds[0].minLon));
+            float YMax = (float)(models.bounds[0].maxLat);
+            float XMIN = (float)(models.bounds[0].minLon);
+            var radixX = GlobalConstant.DRAW_X_SIZE / XSize;
+            var radixY = GlobalConstant.DRAW_Y_SIZE / YSize;
+            foreach (var line in lines)
+            {
+                int i = 0;
+                List<PointF[]> pointList = new List<PointF[]>();
+                List<PointF> listPoint = new List<PointF>();
+                foreach (var node in line.Value)
+                {
+                    float X = (float)(node.lon - XMIN) * radixX + GlobalConstant.START_X;
+                    float Y = (float)(YMax - node.lat) * radixY + GlobalConstant.START_Y;
+                    if (X < 0 || Y < 0)
+                    {
+                        continue;
+                    }
+                    listPoint.Add(new PointF(X, Y));
+                    i++;
+                }
+                if (i != 0)
                 {
                     PointF[] points = new PointF[listPoint.Count];
                     int k = 0;

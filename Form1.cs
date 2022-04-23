@@ -92,7 +92,7 @@ namespace OSMRoadExtract
                         foreach(var line in lines.Value)
                         {
                             path.AddLines(line);
-                            Pen pen = new Pen(Color.Red, 3);
+                            Pen pen = new Pen(Color.Red, 1);
                             //e.Graphics.DrawLines(pen, line.Value);
                             e.Graphics.DrawPath(pen, path);
                         }
