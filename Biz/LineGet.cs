@@ -87,6 +87,7 @@ namespace OSMRoadExtract.Biz
                 int i = 0;
                 List<PointF[]> pointList = new List<PointF[]>();
                 List<PointF> listPoint = new List<PointF>();
+                float lastX = 0,lastY = 0;
                 foreach(var node in line.Value)
                 {
                     float X = (float)(node.lon-XMIN)*radixX+GlobalConstant.START_X;
@@ -107,6 +108,20 @@ namespace OSMRoadExtract.Biz
                             listPoint.Clear();
                         }
                         continue;
+                    }
+                    if(lastX == 0 && lastY == 0)
+                    {
+                        lastX = X;
+                        lastY = Y;
+                    }
+                    else
+                    {
+                        if(Math.Abs(lastX-X)>200 || Math.Abs(lastY-Y)>200)
+                        {
+                            continue;
+                        }
+                        lastX = X;
+                        lastY = Y;
                     }
                     listPoint.Add(new PointF(X, Y));
                      i++;
@@ -154,7 +169,7 @@ namespace OSMRoadExtract.Biz
                 {
                     float X = (float)(node.lon - XMIN) * radixX + GlobalConstant.START_X;
                     float Y = (float)(YMax - node.lat) * radixY + GlobalConstant.START_Y;
-                    if (X < 0 || Y < 0)
+                    if(X<0 || Y<0)
                     {
                         continue;
                     }
@@ -163,7 +178,7 @@ namespace OSMRoadExtract.Biz
                 }
                 if (i != 0)
                 {
-                    PointF[] points = new PointF[listPoint.Count];
+                    PointF[] points = new PointF[line.Value.Count];
                     int k = 0;
                     foreach (var point in listPoint)
                     {

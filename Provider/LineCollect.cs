@@ -14,7 +14,7 @@ namespace OSMRoadExtract.Provider
         private static LineCollect instance = new LineCollect();
         public static LineCollect Instance
         { get { return instance; } }
-        public Dictionary<long, List<PointF[]>> LineGet(OSMModel model)
+        public Dictionary<long, List<PointF[]>> LineGet(OSMModel model,bool flag)
         {
             Dictionary<long, List<PointF[]>> result = new Dictionary<long, List<PointF[]>>();
             if (model.Equals(null))
@@ -23,7 +23,10 @@ namespace OSMRoadExtract.Provider
             }
             
             (var lineList,var bound) = LineExtract.Instance.GetLine(model);
-            result = LineExtract.Instance.FixPointFaggregate(lineList, model, bound);
+            if(flag == true)
+                result = LineExtract.Instance.FixPointFaggregate(lineList, model, bound);
+            else 
+                result = LineExtract.Instance.UnFixPointFaggregate(lineList, model, bound);
             return result;
         }
     }

@@ -21,6 +21,7 @@ namespace OSMRoadExtract
         public Graphics g;
         public int flag = 0;
         public OSMModel model;
+        public bool flags = true;
         public Form1()
         {
             InitializeComponent();
@@ -81,7 +82,7 @@ namespace OSMRoadExtract
             Console.WriteLine("Start");
             if(flag == 1)
             {
-                var lineDictionary = LineCollect.Instance.LineGet(model);
+                var lineDictionary = LineCollect.Instance.LineGet(model , flags);
                 var lineList = lineDictionary.ToList();
                 foreach (var lines in lineList)
                 {
@@ -112,6 +113,24 @@ namespace OSMRoadExtract
         {
             Console.WriteLine(Cursor.Position.X.ToString()+Cursor.Position.Y.ToString());
             
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if(this.checkBox1.Checked == true)
+            {
+                this.checkBox2.Checked = false;
+                flags =true;
+            }
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.checkBox2.Checked == true)
+            {
+                this.checkBox1.Checked = false;
+                flags = false;
+            }
         }
     }
 }
