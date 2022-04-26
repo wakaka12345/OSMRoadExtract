@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Biz\LineGet.cs" />
+    <Compile Include="Biz\WayClear.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

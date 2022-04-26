@@ -79,7 +79,6 @@ namespace OSMRoadExtract
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
             g = panel1.CreateGraphics();
-            Console.WriteLine("Start");
             if(flag == 1)
             {
                 var lineDictionary = LineCollect.Instance.LineGet(model , flags);
@@ -88,12 +87,13 @@ namespace OSMRoadExtract
                 {
                     if (!lines.Equals(null))
                     {
-                        Console.WriteLine("ADD");
                         GraphicsPath path = new GraphicsPath();
                         foreach(var line in lines.Value)
                         {
                             path.AddLines(line);
                             Pen pen = new Pen(Color.Red, 1);
+                            ///test
+                            
                             //e.Graphics.DrawLines(pen, line.Value);
                             e.Graphics.DrawPath(pen, path);
                         }
@@ -130,6 +130,41 @@ namespace OSMRoadExtract
             {
                 this.checkBox1.Checked = false;
                 flags = false;
+            }
+        }
+        private void button2_Click(object sender, EventArgs e)
+        {
+            flag = 1;
+            this.Invalidate();
+            this.Update();
+            this.Refresh();
+        }
+
+        private void checkBox4_CheckedChanged(object sender, EventArgs e)
+        {
+            if(this.checkBox4.Checked == true)
+            {
+                GlobalConstant.REMOVEBUILDING = true;
+                GlobalConstant.ONLYROADWAY = false;
+                this.checkBox3.Checked = false;
+            }
+            else
+            {
+                GlobalConstant.REMOVEBUILDING = false;
+            }
+        }
+
+        private void checkBox3_CheckedChanged(object sender, EventArgs e)
+        {
+            if(this.checkBox3.Checked == true)
+            {
+                this.checkBox4.Checked = false;
+                GlobalConstant.REMOVEBUILDING = false;
+                GlobalConstant.ONLYROADWAY = true;
+            }
+            else
+            {
+                GlobalConstant.ONLYROADWAY = false;
             }
         }
     }

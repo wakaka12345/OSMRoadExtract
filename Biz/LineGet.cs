@@ -17,6 +17,11 @@ namespace OSMRoadExtract.Biz
         public static LineExtract Instance
         { get { return instance; } }
 
+        /// <summary>
+        /// 最大经纬度比较
+        /// </summary>
+        /// <param name="vs"></param>
+        /// <param name="node"></param>
         public void Compared(ref List<float> vs , NodeModel node)
         {
             if (vs[0] < node.lat)
@@ -28,7 +33,25 @@ namespace OSMRoadExtract.Biz
             if (vs[3] > node.lon)
                 vs[3] = (float)node.lon;
         }
-       
+
+        /// <summary>
+        /// 路径筛选
+        /// </summary>
+        /// <param name="model"></param>
+        public List<WayModel> WaysClean(OSMModel model)
+        {
+            List<WayModel> result = model.ways;
+            if(GlobalConstant.REMOVEBUILDING)
+            {
+                result = WayClear.Instance.RemoveBuilding(model);
+            }
+            if(GlobalConstant.ONLYROADWAY)
+            {
+                result = WayClear.Instance.OnlyRoadWay(model);
+            }
+            return result;
+        }
+
         /// <summary>
         /// 获取XML中points与Line对应的实际值
         /// 转换为 wayid - nodeList的Dictionary
@@ -38,6 +61,7 @@ namespace OSMRoadExtract.Biz
         public (Dictionary<long, List<NodeModel>>,List<float>) GetLine(OSMModel model)
         {
             var line = new Dictionary<long, List<NodeModel>>();
+            line.Clear();
             List<float> bound = new List<float>() {0,90,0,180 };
             if (model.Equals(null))
                 return (line, bound); 
@@ -51,8 +75,9 @@ namespace OSMRoadExtract.Biz
                     Compared(ref bound, node);
                 }
             }
+            var ways = WaysClean(model);
             //获取wayid - nodeList的Dictionary
-            foreach (var way in model.ways)
+            foreach (var way in ways)
             {
                 List<NodeModel> nodeList = new List<NodeModel>();
                 foreach(var roadId in way.waynode)
@@ -116,7 +141,7 @@ namespace OSMRoadExtract.Biz
                     }
                     else
                     {
-                        if(Math.Abs(lastX-X)>200 || Math.Abs(lastY-Y)>200)
+                        if(Math.Abs(lastX-X)>200| Math.Abs(lastY-Y)>200)
                         {
                             continue;
                         }
