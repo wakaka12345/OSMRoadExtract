@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OSMRoadExtract.Model;
+using OSMRoadExtract.Provider;
 
 namespace OSMRoadExtract.Biz
 {
@@ -34,23 +35,7 @@ namespace OSMRoadExtract.Biz
                 vs[3] = (float)node.lon;
         }
 
-        /// <summary>
-        /// 路径筛选
-        /// </summary>
-        /// <param name="model"></param>
-        public List<WayModel> WaysClean(OSMModel model)
-        {
-            List<WayModel> result = model.ways;
-            if(GlobalConstant.REMOVEBUILDING)
-            {
-                result = WayClear.Instance.RemoveBuilding(model);
-            }
-            if(GlobalConstant.ONLYROADWAY)
-            {
-                result = WayClear.Instance.OnlyRoadWay(model);
-            }
-            return result;
-        }
+ 
 
         /// <summary>
         /// 获取XML中points与Line对应的实际值
@@ -75,7 +60,7 @@ namespace OSMRoadExtract.Biz
                     Compared(ref bound, node);
                 }
             }
-            var ways = WaysClean(model);
+            var ways = LineSelect.Instance.WaysClean(model);
             //获取wayid - nodeList的Dictionary
             foreach (var way in ways)
             {

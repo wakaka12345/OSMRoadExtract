@@ -80,6 +80,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Provider\LineCollect.cs" />
+    <Compile Include="Provider\LineSelect.cs" />
     <Compile Include="Provider\XMLtransform\CoreTransform.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -95,7 +96,6 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Data\ApplicationAll.cd" />
-    <None Include="Data\map.osm" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

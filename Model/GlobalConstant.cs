@@ -14,5 +14,10 @@ namespace OSMRoadExtract.Model
         public static float START_Y = 1;
         public static bool REMOVEBUILDING = false;
         public static bool ONLYROADWAY = false;
+        public static bool PRIMARYWAY = false;
+        public static bool SECONDARYWAY = false;
+        public static bool TERTIARYWAY = false;
+        public static bool RESIDENTIALWAY = false;
+        public static bool OTHERWAY = false;
     }
 }
