@@ -12,6 +12,7 @@ using OSMRoadExtract.XMLtransform;
 using OSMRoadExtract.Model;
 using OSMRoadExtract.Provider;
 using System.Drawing.Drawing2D;
+using System.Threading;
 
 namespace OSMRoadExtract
 {
@@ -22,6 +23,7 @@ namespace OSMRoadExtract
         public OSMModel model;
         public bool flags = true;
         public int count = 0;
+        List<GraphicsPath> paths = new List<GraphicsPath>();
         public Form1()
         {
             InitializeComponent();
@@ -29,7 +31,14 @@ namespace OSMRoadExtract
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            toolTip1 = new ToolTip();
+            toolTip1.AutoPopDelay = 10000;
+            toolTip1.InitialDelay = 2000;
+            toolTip1.ReshowDelay = 500;
 
+            toolTip1.ShowAlways = true;
+            toolTip1.SetToolTip(this.label4, "选择绘制路网颜色绘制类型");
+            
         }
 
 
@@ -45,6 +54,7 @@ namespace OSMRoadExtract
             {
                 var lineDictionary = LineCollect.Instance.LineGet(model , flags);
                 var lineList = lineDictionary.ToList();
+                paths.Clear();
                 foreach (var lines in lineList)
                 {
                     if (!lines.Equals(null))
@@ -53,13 +63,14 @@ namespace OSMRoadExtract
                         foreach(var line in lines.Value)
                         {
                             path.AddLines(line);
-                            Pen pen = new Pen(Color.Red, 1);
+                            Pen pen = new Pen(Color.Red , 1);
                             ///test
                             
                             //e.Graphics.DrawLines(pen, line.Value);
-                            e.Graphics.DrawPath(pen, path);
+                            g.DrawPath(pen, path);
+                            paths.Add(path);
                         }
-                    } 
+                    }
                 }
                 count++;
                 flag = 0;
@@ -79,8 +90,18 @@ namespace OSMRoadExtract
         /// <param name="e"></param>
         private void panel1_MouseUp(object sender, MouseEventArgs e)
         {
-            Console.WriteLine(Cursor.Position.X.ToString()+Cursor.Position.Y.ToString());
-            
+            Point point = new Point(Cursor.Position.X-105, Cursor.Position.Y-55);
+            Pen pen = new Pen(Color.Red, 20);
+            foreach (var path in paths)
+            {
+                if (path.IsOutlineVisible(point, pen))
+                {
+                    toolTip1.Show($"{Cursor.Position.X.ToString()}+{Cursor.Position.Y.ToString()}", this.panel1);
+                    return;
+                }
+            }
+            toolTip1.Show($"没找到{Cursor.Position.X.ToString()}+{Cursor.Position.Y.ToString()}", this.panel1);
+
         }
         #region 修正数据选择Check
         /// <summary>
@@ -357,6 +378,28 @@ namespace OSMRoadExtract
         #endregion
 
         private void progressBar1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel1_MouseHover(object sender, EventArgs e)
+        {
+            //toolTip1.SetToolTip(this.panel1, $"{Cursor.Position.X.ToString()}+{Cursor.Position.Y.ToString()}");
+            //toolTip1.Show($"{Cursor.Position.X.ToString()}+{Cursor.Position.Y.ToString()}", this.panel1);
+            
+        }
+
+        private void toolTip1_Popup(object sender, PopupEventArgs e)
+        {
+
+        }
+
+        private void tooltip(object sender, EventArgs e)
         {
 
         }
