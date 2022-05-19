@@ -18,8 +18,23 @@ namespace OSMRoadExtract.Model
 
         public List<WayNode> waynode;
 
+        public WayNode WayNode
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public TagModel TagModel
+        {
+            get => default;
+            set
+            {
+            }
+        }
     }
-    
+
     public class WayNode
     {
         public long id;

@@ -11,6 +11,11 @@ namespace OSMRoadExtract.XMLtransform
 {
     public class CoreTransform
     {
+        /// <summary>
+        /// 转换XML数据
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
         public List<OSMModel> TransformXML(string filePath)
         {
             List<OSMModel> models = new List<OSMModel>();

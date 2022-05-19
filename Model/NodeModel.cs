@@ -30,5 +30,12 @@ namespace OSMRoadExtract.Model
         /// </summary>
         public double lon;
 
+        public TagModel TagModel
+        {
+            get => default;
+            set
+            {
+            }
+        }
     }
 }

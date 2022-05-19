@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="OSMRoadExtract.Model.TagModel">
+    <Position X="20.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAEAAAAAAAAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\TagModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OSMRoadExtract.Model.BoundsModel">
+    <Position X="11.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAgAAAAAAAACAAAAAAAIAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\BoundsModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OSMRoadExtract.Model.OSMModel">
+    <Position X="14.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAADAAAAAAAIAAAAAAAQQAEAAIACAAAAACAAAAIAA=</HashCode>
+      <FileName>Model\OSMModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="NodeModel" />
+      <Property Name="WayModel" />
+      <Property Name="BoundsModel" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="OSMRoadExtract.Model.PathModel">
+    <Position X="20.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAACAAAAAABCAAAgAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Model\PathModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OSMRoadExtract.Model.NodeModel">
+    <Position X="17.5" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIBBAAAAgAAAAAAAACAAAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Model\NodeModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="TagModel" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="OSMRoadExtract.Model.WayModel">
+    <Position X="17.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAAAAAAAAAAAQCAAAAAAABAAAAAAgA=</HashCode>
+      <FileName>Model\WayModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="WayNode" />
+      <Property Name="TagModel" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="OSMRoadExtract.Model.WayNode">
+    <Position X="17.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Model\WayModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OSMRoadExtract.Provider.LineCollect">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Provider\LineCollect.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OSMRoadExtract.Provider.LineSearchProvider">
+    <Position X="7.75" Y="4" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAQBAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Provider\LineSearchProvider.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OSMRoadExtract.Provider.LineSelect">
+    <Position X="6.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Provider\LineSelect.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OSMRoadExtract.Biz.LineExtract">
+    <Position X="4" Y="3.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>BBEAAAAAAAAAAAAAAAAAAAAAAABAgAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Biz\LineGet.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OSMRoadExtract.Biz.WayClear">
+    <Position X="1.5" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>CAEAAAAAAAAAAAAAAAAAAAgAAAJBAgAAQAAAAAAAAQA=</HashCode>
+      <FileName>Biz\WayClear.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Microsoft YaHei UI" Size="9" />
+</ClassDiagram>

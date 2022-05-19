@@ -18,12 +18,19 @@ namespace OSMRoadExtract
 {
     public partial class Form1 : Form
     {
-        public Graphics g;
-        public int flag = 0;
-        public OSMModel model;
-        public bool flags = true;
-        public int count = 0;
-        List<GraphicsPath> paths = new List<GraphicsPath>();
+        private Graphics g;
+        private int flag = 0;
+        private OSMModel model;
+        private bool flags = true;
+        private int count = 0;
+        private List<PathModel> pathGatherList = new List<PathModel>();
+        private List<Pen> pens = new List<Pen>(new Pen[]
+            { new Pen(Color.Red, 1)
+            ,new Pen(Color.Green, 1)
+            ,new Pen(Color.Black,1)
+            ,new Pen(Color.Blue, 1)
+            ,new Pen(Color.Gold,1)
+            });
         public Form1()
         {
             InitializeComponent();
@@ -50,26 +57,43 @@ namespace OSMRoadExtract
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
             g = panel1.CreateGraphics();
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
             if(flag == 1)
             {
                 var lineDictionary = LineCollect.Instance.LineGet(model , flags);
                 var lineList = lineDictionary.ToList();
-                paths.Clear();
+                int t = 0;
+                pathGatherList.Clear();
                 foreach (var lines in lineList)
                 {
+                    List<GraphicsPath> paths = new List<GraphicsPath>();
                     if (!lines.Equals(null))
                     {
                         GraphicsPath path = new GraphicsPath();
                         foreach(var line in lines.Value)
                         {
                             path.AddLines(line);
-                            Pen pen = new Pen(Color.Red , 1);
+                            Pen nomolPen = new Pen(Color.Red, 1);
+                            //string picfile = System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "star.JPG";
+                            //Image image = Image.FromFile(picfile);
+                            if (GlobalConstant.POINTFIRSTEND == true)
+                            {
+                                Pen pen = new Pen(Color.Black, 1);
+                                g.DrawEllipse(pen, line[0].X - 2, line[0].Y - 2, 4, 4);
+                                g.DrawEllipse(pen, line[line.Length - 1].X - 2, line[line.Length - 1].Y - 2, 4, 4);
+                            }
+                            //var points = getPointF(line[0]);
+                            //g.DrawImage(image, line[0]);
                             ///test
-                            
                             //e.Graphics.DrawLines(pen, line.Value);
-                            g.DrawPath(pen, path);
+                            if(GlobalConstant.COLORFUL)
+                                g.DrawPath(pens[t++%5], path);
+                            else
+                                g.DrawPath(nomolPen, path);
                             paths.Add(path);
                         }
+                        PathModel pathModel = new PathModel(paths, lines.Key, lines.Value);
+                        pathGatherList.Add(pathModel);
                     }
                 }
                 count++;
@@ -78,29 +102,50 @@ namespace OSMRoadExtract
             
         }
 
+        private PointF[] getPointF(PointF point)
+        {
+            PointF[] points = new PointF[3];
+            points[0] = new PointF(point.X - 10, point.Y - 10);
+            points[0] = new PointF(point.X - 10, point.Y + 10);
+            points[0] = new PointF(point.X + 10, point.Y - 10);
+            return points;
+        }
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
 
         }
 
         /// <summary>
-        /// 点击反馈坐标位置
+        /// 点击反馈坐标位置所在道路
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void panel1_MouseUp(object sender, MouseEventArgs e)
         {
+            int noName = 0;
             Point point = new Point(Cursor.Position.X-105, Cursor.Position.Y-55);
             Pen pen = new Pen(Color.Red, 20);
-            foreach (var path in paths)
+            foreach (var pathGather in pathGatherList)
             {
-                if (path.IsOutlineVisible(point, pen))
+                foreach (var path in pathGather.path)
                 {
-                    toolTip1.Show($"{Cursor.Position.X.ToString()}+{Cursor.Position.Y.ToString()}", this.panel1);
-                    return;
+                    if (path.IsOutlineVisible(point, pen))
+                    {
+                        var name = LineSearchProvider.Instance.GetLineName(model, pathGather.id);
+                        if (name != "")
+                        {
+                            toolTip1.SetToolTip(this.panel1, $"该处为{name}");
+                            return;
+                        }
+                        else
+                            noName = 1;
+                    }
                 }
             }
-            toolTip1.Show($"没找到{Cursor.Position.X.ToString()}+{Cursor.Position.Y.ToString()}", this.panel1);
+            if (noName == 1)
+                toolTip1.SetToolTip(this.panel1, "路网数据中没有该处的名称");
+            else
+               toolTip1.Show($"没找到正确道路哟~", this.panel1);
 
         }
         #region 修正数据选择Check
@@ -358,6 +403,7 @@ namespace OSMRoadExtract
             this.removeBuilding.Checked = false;
             GlobalConstant.REMOVEBUILDING = false;
             GlobalConstant.ONLYROADWAY = false;
+            MustCheck();
         }
         /// <summary>
         /// 关闭分层
@@ -374,6 +420,24 @@ namespace OSMRoadExtract
             this.residentialWay.Checked = false;
             GlobalConstant.OTHERWAY = false;
             this.otherWay.Checked = false;
+            MustCheck();
+        }
+        /// <summary>
+        /// 校验画线与点迹
+        /// </summary>
+        private void MustCheck()
+        {
+            if(this.pointLocation.Checked == true || this.colorChange.Checked == true)
+            {
+                if(this.primaryWay.Checked == false&& this.secondaryWay.Checked == false && this.tertiaryWay.Checked == false && this.residentialWay.Checked == false && this.otherWay.Checked == false)
+                {
+                    MessageBox.Show("尚未选择详细划分路网（如主干道路等）", "错误!!!");
+                    this.pointLocation.Checked = false;
+                    GlobalConstant.COLORFUL = false;
+                    this.colorChange.Checked = false;
+                    GlobalConstant.POINTFIRSTEND = false;
+                }
+            }
         }
         #endregion
 
@@ -402,6 +466,32 @@ namespace OSMRoadExtract
         private void tooltip(object sender, EventArgs e)
         {
 
+        }
+
+        private void colorChange_CheckedChanged(object sender, EventArgs e)
+        {
+            MustCheck();
+            if(this.colorChange.Checked == true)
+            {
+                GlobalConstant.COLORFUL = true;
+            }
+            else
+            {
+                GlobalConstant.COLORFUL = false;
+            }
+        }
+
+        private void pointLocation_CheckedChanged(object sender, EventArgs e)
+        {
+            MustCheck();
+            if(this.pointLocation.Checked == true)
+            {
+                GlobalConstant.POINTFIRSTEND=true;
+            }
+            else
+            {
+                GlobalConstant.POINTFIRSTEND = false;
+            }
         }
     }
 }

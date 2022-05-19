@@ -73,6 +73,7 @@
     <Compile Include="Model\BoundsModel.cs" />
     <Compile Include="Model\GlobalConstant.cs" />
     <Compile Include="Model\NodeModel.cs" />
+    <Compile Include="Model\PathModel.cs" />
     <Compile Include="Model\PointModel.cs" />
     <Compile Include="Model\TagModel.cs" />
     <Compile Include="Model\OSMModel.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Provider\LineCollect.cs" />
+    <Compile Include="Provider\LineSearchProvider.cs" />
     <Compile Include="Provider\LineSelect.cs" />
     <Compile Include="Provider\XMLtransform\CoreTransform.cs" />
     <EmbeddedResource Include="Form1.resx">
@@ -95,6 +97,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="ClassDiagram1.cd" />
     <None Include="Data\ApplicationAll.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -110,7 +113,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Data\star.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

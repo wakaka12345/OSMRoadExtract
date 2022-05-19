@@ -60,6 +60,7 @@ namespace OSMRoadExtract.Biz
                     Compared(ref bound, node);
                 }
             }
+            // 数据提取筛选
             var ways = LineSelect.Instance.WaysClean(model);
             //获取wayid - nodeList的Dictionary
             foreach (var way in ways)

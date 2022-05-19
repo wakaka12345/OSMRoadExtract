@@ -46,5 +46,29 @@ namespace OSMRoadExtract.Model
             set { _ways = value; }
         }
         public double version;
+
+        public NodeModel NodeModel
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public WayModel WayModel
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public BoundsModel BoundsModel
+        {
+            get => default;
+            set
+            {
+            }
+        }
     }
 }

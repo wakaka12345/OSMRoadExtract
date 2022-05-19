@@ -32,7 +32,6 @@ namespace OSMRoadExtract
             this.components = new System.ComponentModel.Container();
             this.button1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.fixDraw = new System.Windows.Forms.CheckBox();
             this.unfixDraw = new System.Windows.Forms.CheckBox();
@@ -49,6 +48,8 @@ namespace OSMRoadExtract
             this.otherWay = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.colorChange = new System.Windows.Forms.CheckBox();
+            this.pointLocation = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // button1
@@ -64,7 +65,7 @@ namespace OSMRoadExtract
             // 
             // panel1
             // 
-            this.panel1.Location = new System.Drawing.Point(100, 1);
+            this.panel1.Location = new System.Drawing.Point(108, 1);
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1905, 1008);
@@ -72,14 +73,6 @@ namespace OSMRoadExtract
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             this.panel1.MouseHover += new System.EventHandler(this.panel1_MouseHover);
             this.panel1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseUp);
-            // 
-            // progressBar1
-            // 
-            this.progressBar1.Location = new System.Drawing.Point(2, 852);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(100, 23);
-            this.progressBar1.TabIndex = 14;
-            this.progressBar1.Click += new System.EventHandler(this.progressBar1_Click);
             // 
             // backgroundWorker1
             // 
@@ -234,7 +227,7 @@ namespace OSMRoadExtract
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(67, 15);
             this.label4.TabIndex = 15;
-            this.label4.Text = "颜色划分";
+            this.label4.Text = "细节显示";
             this.label4.Click += new System.EventHandler(this.label4_Click);
             this.label4.MouseHover += new System.EventHandler(this.tooltip);
             // 
@@ -242,13 +235,36 @@ namespace OSMRoadExtract
             // 
             this.toolTip1.Popup += new System.Windows.Forms.PopupEventHandler(this.toolTip1_Popup);
             // 
+            // checkBox1
+            // 
+            this.colorChange.AutoSize = true;
+            this.colorChange.Location = new System.Drawing.Point(1, 375);
+            this.colorChange.Name = "colorChange";
+            this.colorChange.Size = new System.Drawing.Size(101, 19);
+            this.colorChange.TabIndex = 16;
+            this.colorChange.Text = "颜色划分";
+            this.colorChange.UseVisualStyleBackColor = true;
+            this.colorChange.CheckedChanged += new System.EventHandler(this.colorChange_CheckedChanged);
+            // 
+            // checkBox2
+            // 
+            this.pointLocation.AutoSize = true;
+            this.pointLocation.Location = new System.Drawing.Point(1, 400);
+            this.pointLocation.Name = "pointLocation";
+            this.pointLocation.Size = new System.Drawing.Size(101, 19);
+            this.pointLocation.TabIndex = 17;
+            this.pointLocation.Text = "路段起止点";
+            this.pointLocation.UseVisualStyleBackColor = true;
+            this.pointLocation.CheckedChanged += new System.EventHandler(this.pointLocation_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(2004, 1000);
+            this.Controls.Add(this.pointLocation);
+            this.Controls.Add(this.colorChange);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.otherWay);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -291,9 +307,10 @@ namespace OSMRoadExtract
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox otherWay;
-        private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.CheckBox colorChange;
+        private System.Windows.Forms.CheckBox pointLocation;
     }
 }
 
